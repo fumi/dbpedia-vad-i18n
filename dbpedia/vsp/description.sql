@@ -382,8 +382,9 @@ create procedure dbp_ldd_get_proxy (in x varchar)
 {
   if (x like 'nodeID://%')
     return '/about/html/' || x;
-  if (x like 'http://dbpedia.org/%' and http_request_header (http_request_header (), 'Host') <> 'dbpedia.org')
-    return regexp_replace (x, 'http://dbpedia.org', 'http://'||http_request_header (http_request_header (), 'Host'));
+  -- XXX: does it need here?
+  --if (x like 'http://dbpedia.org/%' and http_request_header (http_request_header (), 'Host') <> 'dbpedia.org')
+  --  return regexp_replace (x, 'http://dbpedia.org', 'http://'||http_request_header (http_request_header (), 'Host'));
   if (x like registry_get('dbp_domain') || '/%' and http_request_header (http_request_header (), 'Host') <> replace(registry_get('dbp_domain'),'http://',''))
     return regexp_replace (x, registry_get('dbp_domain'), 'http://'||http_request_header (http_request_header (), 'Host'));
 
