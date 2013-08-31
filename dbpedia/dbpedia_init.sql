@@ -43,7 +43,7 @@ DB.DBA.VHOST_REMOVE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('d
 
 --# root proxy to dbpedia wiki
 DB.DBA.VHOST_DEFINE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('dbp_vhost'), lpath=>'/',
-	 ppath=>registry_get ('dbp_website'),
+	 ppath=>registry_get('_dbpedia_path_')||'index.html',
 	 is_dav=>0,
 	 def_page=>''
 );
