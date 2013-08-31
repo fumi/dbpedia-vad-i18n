@@ -248,7 +248,7 @@
 <body onload="init();" about="<?=charset_recode(page_resource_uri, 'UTF-8', '_WIDE_') ?>">
   <div id="header">
     <div id="hd_l">
-      <h1 id="title">About: <a href="<?= dbp_ldd_get_proxy (page_resource_uri) ?>"><?=charset_recode(label, 'UTF-8', '_WIDE_') ?></a></h1>
+      <h1 id="title">About: <a href="<?=charset_recode(page_resource_uri, 'UTF-8', '_WIDE_') ?>"><?=charset_recode(label, 'UTF-8', '_WIDE_') ?></a></h1>
         <div id="homelink">
           <!--?vsp if (white_page = 0) http (txt); ?-->
         </div>
