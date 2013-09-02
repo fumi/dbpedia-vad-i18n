@@ -1,0 +1,123 @@
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix wv: <http://vocab.org/waiver/terms/norms> .
+@prefix sd: <http://www.w3.org/ns/sparql-service-description#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <http://ja.dbpedia.org/void.ttl#> .
+
+<http://ja.dbpedia.org/void.ttl> a void:DatasetDescription ;
+  dcterms:title "A VoID Description of DBpedia Japanese"@en ;
+  dcterms:creator <http://fumi.me/foaf#me> .
+
+:DBpediaJA a void:Dataset ;
+  dcterms:title "DBpedia Japanese"@en, "DBpedia Japanese"@ja ;
+  dcterms:description "DBpedia Japanese provides RDF datasets extracted from Japanese Wikipedia" ;
+  dcterms:creator <http://fumi.me/foaf#me> ;
+  dcterms:publisher :LODAC ;
+  dcterms:contributor
+    :NII,
+    :ROIS,
+    :DBpediaCommunity ;
+  dcterms:source <http://ja.dbpedia.org/page/Wikipedia> ;
+  dcterms:created "2012-05-09"^^xsd:date ;
+  dcterms:modified "2013-06-12"^^xsd:date ;
+  dcterms:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  foaf:homepage <http://ja.dbpedia.org> ;
+  foaf:page
+    <http://datahub.io/dataset/dbpedia-ja>,
+    <http://data.linkedopendata.jp/dataset/dbpedia-japanese>,
+    <http://ja.dbpedia.org/dumps/> ;
+  void:sparqlEndpoint <http://ja.dbpedia.org/sparql> ;
+  void:triples 70790371 ;
+  void:feature
+    <http://www.w3.org/ns/formats/RDF_XML>,
+    <http://www.w3.org/ns/formats/N3>,
+    <http://www.w3.org/ns/formats/RDFa> .
+
+:LODAC a foaf:Project ;
+  dcterms:title "LODAC Project"@en, "LODACプロジェクト"@ja ;
+  foaf:homepage <http://lod.ac> .
+  
+:NII a foaf:Organization ;
+  dcterms:title "National Institute of Informatics"@en, "国立情報学研究所"@ja ;
+  foaf:homepage <http://www.nii.ac.jp> ;
+  rdfs:seeAlso <http://ja.dbpedia.org/resource/国立情報学研究所>, <http://dbpedia.org/resource/National_Institute_of_Informatics> .
+
+:ROIS a foaf:Organization ;
+  dcterms:title "Research Organization of Information and Systems"@en, "情報・システム研究機構"@ja ;
+  foaf:homepage <http://www.rois.ac.jp> ;
+  rdfs:seeAlso <http://ja.dbpedia.org/resource/情報・システム研究機構> .
+
+:DBpediaCommunity a foaf:Project ;
+  dcterms:title "DBpedia Community"@en, "DBpediaコミュニティ"@ja ;
+  foaf:homepage <http://dbpedia.org> .
+
+:DBpediaJA2DBpedia a void:Linkset ;
+  void:target :DBpediaJA, :DBpedia ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 421893 .
+  
+:DBpediaJA2DBpediaCS a void:Linkset ;
+  void:target :DBpediaJA, :DBpediaCS ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 101868 .
+  
+:DBpediaJA2DBpediaDE a void:Linkset ;
+  void:target :DBpediaJA, :DBpediaDE ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 245530 .
+  
+:DBpediaJA2DBpediaEL a void:Linkset ;
+  void:target :DBpediaJA, :DBpediaEL ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 38115 .
+  
+:DBpediaJA2DBpediaES a void:Linkset ;
+  void:target :DBpediaJA, :DBpediaES ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 210754 .
+  
+:DBpediaJA2DBpediaFR a void:Linkset ;
+  void:target :DBpediaJA, :DBpediaFR ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 267194 .
+  
+:DBpediaJA2DBpediaIT a void:Linkset ;
+  void:target :DBpediaJA, :DBpediaIT ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 218736 .
+  
+:DBpediaJA2DBpediaKO a void:Linkset ;
+  void:target :DBpediaJA, :DBpediaKO ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 148988 .
+  
+:DBpediaJA2DBpediaPL a void:Linkset ;
+  void:target :DBpediaJA, :DBpediaPL ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 192975 .
+  
+:DBpediaJA2DBpediaPT a void:Linkset ;
+  void:target :DBpediaJA, :DBpediaPT ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 190044 .
+  
+:DBpediaJA2DBpediaRU a void:Linkset ;
+  void:target :DBpediaJA, :DBpediaRU ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 210254 .
+  
+:DBpediaJA2JAWikipediaOntology a void:Linkset ;
+  void:target :DBpediaJA, :JAWikipediaOntology ;
+  void:linkPredicate owl:sameAs, rdfs:seeAlso ;
+  void:triples 932897 .
+  
+:DBpediaJA2WordnetJA a void:Linkset ;
+  void:target :DBpediaJA, :WordnetJA ;
+  void:linkPredicate skos:closeMatch ;
+  void:triples 34262 .
