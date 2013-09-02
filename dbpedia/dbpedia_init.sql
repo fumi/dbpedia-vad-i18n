@@ -62,7 +62,7 @@ DB.DBA.VHOST_DEFINE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('d
 	 opts=>vector ('url_rewrite', 'dbp_rule_list_3')
 );
 
-DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbp_rule_list_3', 1, vector ('dbp_rule_6', 'dbp_rule_7', 'dbp_rule_18', 'dbp_rule_19'));
+DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbp_rule_list_3', 1, vector ('dbp_rule_6', 'dbp_rule_7', 'dbp_rule_18', 'dbp_rule_19', 'dbp_rule_20'));
 
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbp_rule_6', 1, '(/[^#]*)', vector ('par_1'), 1,
 registry_get('_dbpedia_path_')||'description.vsp?res=%U', vector ('par_1'), NULL, NULL, 2, 0, '');
@@ -88,7 +88,7 @@ DB.DBA.VHOST_DEFINE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('d
 );
 
 
-DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbp_rule_list_owl', 1, vector ('owl_rule_6', 'owl_rule_7', 'owl_rule_18', 'owl_rule_19'));
+DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbp_rule_list_owl', 1, vector ('owl_rule_6', 'owl_rule_7', 'owl_rule_18', 'owl_rule_19', 'owl_rule_20'));
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'owl_rule_6', 1, '(/[^#]*)', vector ('par_1'), 1,
 registry_get('_dbpedia_path_')||'description.vsp?res=%U', vector ('par_1'), NULL, NULL, 2, 0, '');
 
@@ -410,7 +410,7 @@ DB.DBA.VHOST_DEFINE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('d
 	 opts=>vector ('url_rewrite', 'dbp_rule_list_prop')
 );
 
-DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbp_rule_list_prop', 1, vector ('prop_rule_6', 'prop_rule_7', 'prop_rule_18', 'prop_rule_19'));
+DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbp_rule_list_prop', 1, vector ('prop_rule_6', 'prop_rule_7', 'prop_rule_18', 'prop_rule_19', 'prop_rule_20'));
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'prop_rule_6', 1, '(/[^#\\?]*)', vector ('par_1'), 1,
 registry_get('_dbpedia_path_')||'description.vsp?res=%U', vector ('par_1'), NULL, NULL, 0, 0, '');
 
@@ -423,7 +423,7 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'prop_rule_18', 1, '/property/(.*)\x24', v
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'prop_rule_19', 1, '/property/(.*)\x24', vector ('par_1'), 1,
 '/data4/%s.ttl', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
 
-DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'prop_rule_19', 1, '/property/(.*)\x24', vector ('par_1'), 1,
+DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'prop_rule_20', 1, '/property/(.*)\x24', vector ('par_1'), 1,
 '/data4/%s.ttl', vector ('par_1'), NULL, 'text/turtle', 2, 303, 'Content-Type: text/turtle');
 
 --# data4
@@ -707,7 +707,7 @@ DB.DBA.VHOST_REMOVE (lpath=>'/void');
 DB.DBA.VHOST_DEFINE (lpath=>'/void', ppath=>'/', is_dav=>0, def_page=>'', opts=>vector ('url_rewrite', 'dbpl_void_rule_list'));
 
 DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbpl_void_rule_list', 1,
-    vector ('dbpl_void_rule_1', 'dbpl_void_rule_2', 'dbpl_void_rule_3', 'dbpl_void_rule_4'));
+    vector ('dbpl_void_rule_1', 'dbpl_void_rule_2', 'dbpl_void_rule_3', 'dbpl_void_rule_4', 'dbpl_void_rule_5'));
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_void_rule_1', 1, '/void/(.*)\x24', vector ('par_1'), 1,
     '/void/page/%s', vector ('par_1'), NULL, NULL, 2, 303, NULL);
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_void_rule_2', 1, '/void/(.*)\x24', vector ('par_1'), 1,
@@ -716,7 +716,7 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_void_rule_3', 1, '/void/(.*)\x24', v
     '/void/data/%s.n3', vector ('par_1'), NULL, 'text/rdf.n3', 2, 303, 'Content-Type: text/rdf+n3');
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_void_rule_4', 1, '/void/(.*)\x24', vector ('par_1'), 1,
     '/void/data/%s.ttl', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
-DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_void_rule_4', 1, '/void/(.*)\x24', vector ('par_1'), 1,
+DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_void_rule_5', 1, '/void/(.*)\x24', vector ('par_1'), 1,
     '/void/data/%s.ttl', vector ('par_1'), NULL, 'text/turtle', 2, 303, 'Content-Type: text/turtle');
 
 TTLP (

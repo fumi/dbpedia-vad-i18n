@@ -175,7 +175,7 @@ DB.DBA.VHOST_DEFINE (lpath=>'/class',
 	 opts=>vector ('url_rewrite', 'dbpl_class_rule_list')
 );
 
-DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbpl_class_rule_list', 1, vector ('dbpl_class_rule_1', 'dbpl_class_rule_2', 'dbpl_class_rule_3', 'dbpl_class_rule_4'));
+DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbpl_class_rule_list', 1, vector ('dbpl_class_rule_1', 'dbpl_class_rule_2', 'dbpl_class_rule_3', 'dbpl_class_rule_4', 'dbpl_class_rule_5'));
 
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_class_rule_1', 1, '(/[^#]*)', vector ('par_1'), 1,
 registry_get('_dbpedia_path_')||'description.vsp?res=%U', vector ('par_1'), NULL, NULL, 0, 0, '');
@@ -189,12 +189,15 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_class_rule_3', 1, '/class/(.*)\x24',
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_class_rule_4', 1, '/class/(.*)\x24', vector ('par_1'), 1,
 '/data2/%s.n3', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
 
+DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_class_rule_5', 1, '/class/(.*)\x24', vector ('par_1'), 1,
+'/data2/%s.ttl', vector ('par_1'), NULL, 'text/turtle', 2, 303, 'Content-Type: text/turtle');
+
 
 -- OWL
 DB.DBA.VHOST_REMOVE (lpath=>'/ontology');
 DB.DBA.VHOST_DEFINE (lpath=>'/ontology', ppath=>'/', is_dav=>0, def_page=>'', opts=>vector ('url_rewrite', 'dbpl_owl_rule_list'));
 
-DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbpl_owl_rule_list', 1, vector ('dbpl_owl_rule_1', 'dbpl_owl_rule_2', 'dbpl_owl_rule_3', 'dbpl_owl_rule_4'));
+DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbpl_owl_rule_list', 1, vector ('dbpl_owl_rule_1', 'dbpl_owl_rule_2', 'dbpl_owl_rule_3', 'dbpl_owl_rule_4', 'dbpl_owl_rule_5'));
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_owl_rule_1', 1, '(/[^#]*)', vector ('par_1'), 1,
 registry_get('_dbpedia_path_')||'description.vsp?res=%U', vector ('par_1'), NULL, NULL, 0, 0, '');
 
@@ -206,6 +209,9 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_owl_rule_3', 1, '/ontology/(.*)\x24'
 
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_owl_rule_4', 1, '/ontology/(.*)\x24', vector ('par_1'), 1,
 '/data3/%s.n3', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
+
+DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_owl_rule_5', 1, '/ontology/(.*)\x24', vector ('par_1'), 1,
+'/data3/%s.n3', vector ('par_1'), NULL, 'text/turtle', 2, 303, 'Content-Type: text/turtle');
 
 -- RDF link
 create procedure DB.DBA.DBP_GRAPH_PARAM (in par varchar, in fmt varchar, in val varchar)
@@ -365,12 +371,13 @@ create procedure DB.DBA.DBP_DATA_IRI (in par varchar, in fmt varchar, in val var
 
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_category_rule_2', 1, '/category/([^\\?]*)(\\?lang=.*)?\x24', vector ('par_1', 'par_2'), 1,
     '/data/%s@__@%s', vector ('par_2', 'par_1'), 'DB.DBA.DBP_DATA_IRI', 
-    '(application/rdf.xml)|(text/rdf.n3)|(application/x-turtle)|(application/rdf.json)|(application/json)', 2, 303, '^{sql:DB.DBA.DBP_LINK_HDR}^');
+    '(application/rdf.xml)|(text/rdf.n3)|(application/x-turtle)|(text/turtle)|(application/rdf.json)|(application/json)', 2, 303, '^{sql:DB.DBA.DBP_LINK_HDR}^');
 
 delete from DB.DBA.HTTP_VARIANT_MAP where VM_RULELIST = 'dbpl_category_rule_list';
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.xml', 'application/rdf+xml', 0.95, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.n3',  'text/rdf+n3', 0.80, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.ttl',  'application/x-turtle', 0.70, location_hook=>null);
+DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.ttl',  'text/turtle', 0.70, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.json',  'application/json', 0.60, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.jrdf',  'application/rdf+json', 0.60, location_hook=>null);
 
@@ -398,13 +405,14 @@ create procedure DB.DBA.DBP_DATA_IRI (in par varchar, in fmt varchar, in val var
 
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_resource_rule_2', 1, '/resource/([^\\?]*)(\\?lang=.*)?\x24', vector ('par_1', 'par_2'), 1,
     '/data/%s@__@%s', vector ('par_2', 'par_1'), 'DB.DBA.DBP_DATA_IRI', 
-    '(application/rdf.xml)|(text/rdf.n3)|(text/n3)|(application/x-turtle)|(application/rdf.json)|(application/json)|(application/atom.xml)|(application/odata.json)', 2, 303, '^{sql:DB.DBA.DBP_LINK_HDR}^');
+    '(application/rdf.xml)|(text/rdf.n3)|(text/n3)|(application/x-turtle)|(text/turtle)|(application/rdf.json)|(application/json)|(application/atom.xml)|(application/odata.json)', 2, 303, '^{sql:DB.DBA.DBP_LINK_HDR}^');
 
 delete from DB.DBA.HTTP_VARIANT_MAP where VM_RULELIST = 'dbpl_resource_rule_list';
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.xml', 'application/rdf+xml', 0.95, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.n3',  'text/n3', 0.80, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.nt',  'text/rdf+n3', 0.80, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.ttl',  'application/x-turtle', 0.70, location_hook=>null);
+DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.ttl',  'text/turtle', 0.70, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.json',  'application/json', 0.60, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.jrdf',  'application/rdf+json', 0.60, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.atom',  'application/atom+xml', 0.50, location_hook=>null);
@@ -429,7 +437,7 @@ DB.DBA.VHOST_DEFINE (lpath=>'/property',
 	 def_page=>'',
 	 opts=>vector ('url_rewrite', 'dbpl_prop_rule_list')
 );
-DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbpl_prop_rule_list', 1, vector ('dbpl_prop_rule_1', 'dbpl_prop_rule_2', 'dbpl_prop_rule_3', 'dbpl_prop_rule_4'));
+DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbpl_prop_rule_list', 1, vector ('dbpl_prop_rule_1', 'dbpl_prop_rule_2', 'dbpl_prop_rule_3', 'dbpl_prop_rule_4', 'dbpl_prop_rule_5'));
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_prop_rule_1', 1, '(/[^#]*)', vector ('par_1'), 1,
 registry_get('_dbpedia_path_')||'description.vsp?res=%U', vector ('par_1'), NULL, NULL, 0, 0, '');
 
@@ -441,6 +449,9 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_prop_rule_3', 1, '/property/(.*)\x24
 
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_prop_rule_4', 1, '/property/(.*)\x24', vector ('par_1'), 1,
 '/data4/%s.n3', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
+
+DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_prop_rule_5', 1, '/property/(.*)\x24', vector ('par_1'), 1,
+'/data4/%s.ttl', vector ('par_1'), NULL, 'text/turtle', 2, 303, 'Content-Type: text/turtle');
 
 -- RDF for property
 DB.DBA.VHOST_REMOVE (lpath=>'/data4');
@@ -465,7 +476,7 @@ DB.DBA.VHOST_DEFINE (lpath=>'/meta',
 	 def_page=>'',
 	 opts=>vector ('url_rewrite', 'dbpl_meta_rule_list')
 );
-DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbpl_meta_rule_list', 1, vector ('dbpl_meta_rule_1', 'dbpl_meta_rule_2', 'dbpl_meta_rule_3', 'dbpl_meta_rule_4'));
+DB.DBA.URLREWRITE_CREATE_RULELIST ( 'dbpl_meta_rule_list', 1, vector ('dbpl_meta_rule_1', 'dbpl_meta_rule_2', 'dbpl_meta_rule_3', 'dbpl_meta_rule_4', 'dbpl_meta_rule_5'));
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_meta_rule_1', 1, '(/[^#]*)', vector ('par_1'), 1,
 registry_get('_dbpedia_path_')||'description.vsp?res=%U', vector ('par_1'), NULL, NULL, 0, 0, '');
 
@@ -477,6 +488,9 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_meta_rule_3', 1, '/meta/(.*)\x24', v
 
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_meta_rule_4', 1, '/meta/(.*)\x24', vector ('par_1'), 1,
 '/data5/%s.n3', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
+
+DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_meta_rule_5', 1, '/meta/(.*)\x24', vector ('par_1'), 1,
+'/data5/%s.ttl', vector ('par_1'), NULL, 'text/turtle', 2, 303, 'Content-Type: text/turtle');
 
 -- RDF for meta
 DB.DBA.VHOST_REMOVE (lpath=>'/data5');
