@@ -376,7 +376,6 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_category_rule_2', 1, '/category/([^\
 delete from DB.DBA.HTTP_VARIANT_MAP where VM_RULELIST = 'dbpl_category_rule_list';
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.xml', 'application/rdf+xml', 0.95, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.n3',  'text/rdf+n3', 0.80, location_hook=>null);
-DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.ttl',  'application/x-turtle', 0.70, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.ttl',  'text/turtle', 0.70, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.json',  'application/json', 0.60, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_category_rule_list', '@__@(.*)', '/data/\x241.jrdf',  'application/rdf+json', 0.60, location_hook=>null);
@@ -411,7 +410,6 @@ delete from DB.DBA.HTTP_VARIANT_MAP where VM_RULELIST = 'dbpl_resource_rule_list
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.xml', 'application/rdf+xml', 0.95, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.n3',  'text/n3', 0.80, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.nt',  'text/rdf+n3', 0.80, location_hook=>null);
-DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.ttl',  'application/x-turtle', 0.70, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.ttl',  'text/turtle', 0.70, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.json',  'application/json', 0.60, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbpl_resource_rule_list', '/(.*)@__@(.*)', '/data/\x242.jrdf',  'application/rdf+json', 0.60, location_hook=>null);
