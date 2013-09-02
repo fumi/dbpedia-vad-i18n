@@ -80,10 +80,13 @@ create procedure dbp_ldd_set_ns_decl ()
     'http://umbel.org/umbel/sc/', 'umbel-sc',
     'http://umbel.org/umbel/ac/', 'umbel-ac',
     'http://www.georss.org/georss/', 'georss',
-    'http://sw.opencyc.org/2008/06/10/concept/en/', 'opencyc',
+    'http://sw.opencyc.org/2008/06/10/concept/en/', 'opencyc-en',
     'http://sw.opencyc.org/2008/06/10/concept/', 'opencyc',
     'http://mpii.de/yago/resource/', 'yago-res',
-    'http://rdf.freebase.com/ns/', 'freebase');
+    'http://rdf.freebase.com/ns/', 'freebase',
+    'http://www.w3.org/ns/prov#', 'prov',
+    'http://creativecommons.org/ns#', 'cc',
+    'http://schema.org/', 'schema');
    l := length (arr);
    for (i := 0; i < l; i := i + 2)
    {
@@ -512,7 +515,7 @@ create procedure dbp_ldd_rel_print (in val any, in rel any, in obj any, in flag 
 
 
   if (nspref is not null and nspref not in ('dbpprop', 'owl'))
-    nss := sprintf (' xmlns:%s="%s"', nspref, nss);
+    nss := sprintf (' prefix="%s: "%s"', nspref, nss);
   else  
     nss := '';
   if (flag)
