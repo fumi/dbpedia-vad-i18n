@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang='ja'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBpedia Japanese</title>
+    <link href="/statics/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 9]>
+    <script src="/javascripts/html5shiv.js"></script>
+    <script src="/javascripts/respond.min.js"></script>
+    <![endif]-->
+    <script src="//code.jquery.com/jquery.js" type="text/javascript"></script>
+    <script src="/javascripts/bootstrap.min.js" type="text/javascript"></script>
+    <script>
+      //<![CDATA[
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-5841060-7']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      //]]>
+    </script>
+  </head>
+  <body>
+    <div class='navbar navbar-default navbar-fixed-top'>
+      <div class='container'>
+        <div class='navbar-header'>
+          <a class="navbar-brand" href="#">DBpedia Japanese</a>
+          <button type="button" class='navbar-toggle' data-target='.navbar-collapse' data-toggle='collapse'>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+          </button>
+        </div>
+        <div class='collapse navbar-collapse'>
+          <ul class='nav navbar-nav'>
+            <li class='active'><a href='/'>ホーム</a></li>
+            <li><a href='/sparql'>SPARQL Endpoint</a></li>
+            <li><a href='/fct'>Faceted Browser</a></li>
+            <li><a href='/isparql'>iSPARQL</a></li>
+            <li><a href='/dumps/'>ダウンロード</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='container'>
+      <div class="page-header" id="banner">
+        <div class="well">
+          <h1><img src="/statics/ja_dbpedia_logo.png" /></h1>
+          <p>DBpediaはWikipediaから情報を抽出してLOD (Linked Open Data)として公開するコミュニティプロジェクトです．<a href="http://dbpedia.org">本家のDBpedia</a>は主に<a href="http://en.wikipedia.org">Wikipedia英語版</a>を対象としています．DBpedia Japanese の目的は，<a href="http://ja.wikipedia.org">Wikipedia日本語版</a>を対象としたDBpediaを提供することです．</p>
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h2 class="panel-title">2013-08-05</h2>
+            </div>
+            <div class="panel-body">
+              <ul>
+                <li>2013-07-24のWikipediaダンプデータに更新しました．(注:abstractに関しては以前のまま．)</li>
+                <li>画像データを追加しました．</li>
+                <li>時間周り(birthDate, birthYear等)を抽出するようにしました．</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-6'>
+          <div class="panel panel-default" id="examples">
+            <div class="panel-heading">
+              <h2>リソース例</h2>
+            </div>
+            <div class="panel-body">
+              <ul>
+                <li><a href='/resource/東京都'>東京都</a></li>
+                <li><a href='/resource/森薫'>森薫</a></li>
+                <li><a href='/resource/国立情報学研究所'>国立情報学研究所</a></li>
+                <li><a href='/resource/情報・システム研究機構'>情報・システム研究機構</a></li>
+                <li><a href='/resource/新宿駅'>新宿駅</a></li>
+                <li><a href='/resource/建長寺'>建長寺</a></li>
+                <li><a href='/resource/サザンオールスターズ'>サザンオールスターズ</a></li>
+                <li><a href='/resource/鶴岡八幡宮'>鶴岡八幡宮</a></li>
+                <li><a href='/resource/国道1号'>国道1号</a></li>
+                <li><a href='/resource/初音ミク'>初音ミク</a></li>
+                <li><a href='/resource/ももいろクローバーZ'>ももいろクローバーZ</a></li>
+                <li><a href='/resource/知床半島'>知床半島</a></li>
+                <li><a href='/resource/平清盛'>平清盛</a></li>
+                <li><a href='/resource/姫路城'>姫路城</a></li>
+                <li><a href='/resource/レオナルド・ダ・ヴィンチ'>レオナルド・ダ・ヴィンチ</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel panel-default" id='download'>
+            <div class="panel-heading">
+              <h3 class="page-title">ダウンロード</h2>
+            </div>
+            <div class="panel-body">
+              <p><a href="/dumps/">データダンプのダウンロード</a></p>
+            </div>
+          </div>
+          <div class="panel panel-default" id='todo'>
+            <div class="panel-heading">
+              <h3 class="page-title">TODO</h3>
+            </div>
+            <div class="panel-body">
+              <ul>
+                <li><a href="http://lod.ac/wiki/DBpedia_Mappings">DBpedia Mappings</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class="panel panel-default" id='sparql_examples'>
+            <div class="panel-heading">
+              <h3 class="page-title">SPARQL例</h3>
+            </div>
+            <div class="panel-body">
+              <p><a href='/sparql'>SPARQL Endpoint</a></p>
+              <section>
+                <h3>東京都</h3>
+                <pre>SELECT DISTINCT *
+WHERE {
+  &lt;http://ja.dbpedia.org/resource/東京都&gt; ?p ?o .
+}</pre>
+              <p><a href="http://ja.dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fja.dbpedia.org&query=SELECT+DISTINCT+*%0D%0AWHERE+%7B%0D%0A++%3Chttp%3A%2F%2Fja.dbpedia.org%2Fresource%2F%E6%9D%B1%E4%BA%AC%3E+%3Fp+%3Fo+.%0D%0A%7D&format=text%2Fhtml&debug=on&timeout=">SPARQL結果</a></p>
+              </section>
+              <section>
+                <h3>ロック音楽のリスト (もしあれば画像uriも)</h3>
+                <pre>SELECT DISTINCT ?label ?depiction
+WHERE {
+  ?s dbpprop-ja:genre &lt;http://ja.dbpedia.org/resource/ロック_(音楽)&gt; ;
+    rdfs:label ?label .
+  OPTIONAL { ?s foaf:depiction ?depiction .  }
+}</pre>
+                <p><a href="http://ja.dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fja.dbpedia.org&query=select+DISTINCT+%3Flabel+%3Fdepiction%0D%0Awhere+%7B%0D%0A++%3Fs+dbpprop-ja%3Agenre+%3Chttp%3A%2F%2Fja.dbpedia.org%2Fresource%2F%E3%83%AD%E3%83%83%E3%82%AF_%28%E9%9F%B3%E6%A5%BD%29%3E+%3B%0D%0A++++rdfs%3Alabel+%3Flabel+.%0D%0A++OPTIONAL+%7B+%3Fs+foaf%3Adepiction+%3Fdepiction+.++%7D%0D%0A%7D&format=text%2Fhtml&debug=on&timeout=">SPARQL結果</a></p>
+              </section>
+              <section>
+                <h3>誕生日が1月1日</h3>
+                <pre>SELECT DISTINCT ?label ?birthYear
+WHERE {
+  ?s &lt;http://ja.dbpedia.org/property/生日&gt; 1 ;
+    &lt;http://ja.dbpedia.org/property/生月&gt; 1 ;
+    &lt;http://ja.dbpedia.org/property/生年&gt; ?birthYear ;
+    rdfs:label ?label .
+}
+ORDER BY ?birthYear</pre>
+                <p><a href="http://ja.dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fja.dbpedia.org&query=SELECT+distinct+%3Flabel+%3FbirthYear%0D%0Awhere+%7B%0D%0A++%3Fs+%3Chttp%3A%2F%2Fja.dbpedia.org%2Fproperty%2F%E7%94%9F%E6%97%A5%3E+1+%3B%0D%0A++++%3Chttp%3A%2F%2Fja.dbpedia.org%2Fproperty%2F%E7%94%9F%E6%9C%88%3E+1+%3B%0D%0A++++%3Chttp%3A%2F%2Fja.dbpedia.org%2Fproperty%2F%E7%94%9F%E5%B9%B4%3E+%3FbirthYear+%3B%0D%0A++++rdfs%3Alabel+%3Flabel+.%0D%0A%7D%0D%0AORDER+BY+%3FbirthYear&format=text%2Fhtml&debug=on&timeout=">SPARQL結果</a></p>
+              </section>
+              <section>
+                <h3>全国の地域限定ゆるキャラ</h3>
+                <pre>SELECT DISTINCT ?mascot ?name
+WHERE {
+  ?areamascots skos:broader &lt;http://ja.dbpedia.org/resource/Category:地域限定のマスコット&gt; ;
+    rdfs:label ?areaname .
+  ?mascot dbpedia-owl:wikiPageWikiLink ?areamascots ;
+    rdfs:label ?name.
+}</pre>
+                <p><a href="http://ja.dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fja.dbpedia.org&query=SELECT+DISTINCT+%3Fmascot+%3Fname%0D%0AWHERE+%7B%0D%0A++%3Fareamascots+skos%3Abroader+%3Chttp%3A%2F%2Fja.dbpedia.org%2Fresource%2FCategory%3A%E5%9C%B0%E5%9F%9F%E9%99%90%E5%AE%9A%E3%81%AE%E3%83%9E%E3%82%B9%E3%82%B3%E3%83%83%E3%83%88%3E+%3B%0D%0A++++rdfs%3Alabel+%3Fareaname+.%0D%0A++%3Fmascot+dbpedia-owl%3AwikiPageWikiLink+%3Fareamascots+%3B%0D%0A++++rdfs%3Alabel+%3Fname.%0D%0A%7D&format=text%2Fhtml&timeout=0">SPARQL結果</a></p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='well'>
+          <h2>変更履歴</h2>
+            <h3 class="alert-heading">2013-08-05</h3>
+            <ul>
+              <li>2013-07-24のWikipediaダンプデータに更新しました．(注:abstractに関しては以前のまま．)</li>
+              <li>画像データを追加しました．</li>
+              <li>時間周り(birthDate, birthYear等)を抽出するようにしました．</li>
+            </ul>
+            <h3 class="alert-heading">2013-07-30</h3>
+            <ul>
+              <li>データへのリンクのIRIについてバグを修正しました．</li>
+              <li>Virtuosoをdevelop/7に移行しました．SPARQL1.1に大分対応しています．</li>
+            </ul>
+            <h3 class="alert-heading">2012-08-22</h3>
+            <ul>
+              <li>2012-08-06版のja.wikipedia.orgをベースに更新しました．DBpedia Mappingsが反映されるようになりました．</li>
+            </ul>
+            <h3 class="alert-heading">2012-07-19</h3>
+            <ul>
+              <li>2012-06-30の変更で発生していたSPARQLクエリ結果のバグを修正しました．</li>
+            </ul>
+            <h3 class="alert-heading">2012-06-30</h3>
+            <ul>
+              <li>2012-06-03版ja.wikipedia.orgのdumpをベースに更新しました．</li>
+              <li>%エンコーディングのURIからIRIに変更しました．今まで'東京'のリソースは&lt;http://ja.dbpedia.org/resource/%E6%9D%B1%E4%BA%AC&gt; でしたが，&lt;http://ja.dbpedia.org/resource/東京&gt; になります．</li>
+            </ul>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-12'>
+          <hr class="soften">
+          <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="/statics/cc_by_sa_88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">DBpedia Japanese</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://ja.dbpedia.org" property="cc:attributionName" rel="cc:attributionURL">DBpedia Community</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons 表示 - 継承 3.0 非移植 License</a>.</p>
+          <address>Hosted by <a href="http://lod.ac">LODAC</a>, <a href="http://www.nii.ac.jp">National Institute of Informatics</a>, <a href="http://tric.rois.ac.jp/">Transdisciplinary Research Integration Center</a></address>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

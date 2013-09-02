@@ -51,8 +51,13 @@ EXTRA_DIST = \
 	*.sql \
 	make_vad.sh \
 	vad_version \
+	vsp/*.html \
 	vsp/*.sql \
 	vsp/*.vsp \
+	vsp/fonts/*.eot \
+	vsp/fonts/*.svg \
+	vsp/fonts/*.ttf \
+	vsp/fonts/*.woff \
 	vsp/images/*.gif \
 	vsp/images/*.png \
 	vsp/statics/*.css \

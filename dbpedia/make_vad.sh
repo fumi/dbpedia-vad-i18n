@@ -174,8 +174,10 @@ directory_init() {
   mkdir vad/code/dbpedia
   mkdir vad/vsp
   mkdir vad/vsp/dbpedia
+  mkdir vad/vsp/dbpedia/fonts
   mkdir vad/vsp/dbpedia/statics
   mkdir vad/vsp/dbpedia/images
+  mkdir vad/vsp/dbpedia/javascripts
   mkdir vad/vsp/dbpedia/style
 
   cd vsp > /dev/null 2>&1

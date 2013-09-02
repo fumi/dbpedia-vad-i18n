@@ -43,9 +43,9 @@ DB.DBA.VHOST_REMOVE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('d
 
 --# root proxy to dbpedia wiki
 DB.DBA.VHOST_DEFINE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('dbp_vhost'), lpath=>'/',
-	 ppath=>registry_get ('dbp_website'),
-	 is_dav=>0,
-	 def_page=>''
+	 ppath=>registry_get('_dbpedia_path_'),
+	 is_dav=>atoi(registry_get('_dbpedia_dav_')),
+	 def_page=>'index.html'
 );
 
 DB.DBA.VHOST_DEFINE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('dbp_vhost'), lpath=>rtrim (registry_get('_dbpedia_path_'), '/'),
@@ -104,7 +104,7 @@ DB.DBA.VHOST_DEFINE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('d
 	 ppath=>registry_get('_dbpedia_path_'),
 	 is_dav=>atoi (registry_get('_dbpedia_dav_')),
 	 vsp_user=>'dba',
-	 opts=>vector ('url_rewrite', 'dbp_data_rule_list', 'url_rewrite_keep_lpath', 1)
+	 opts=>vector ('url_rewrite', 'dbp_data_rule_list', 'url_rewrite_keep_lpath', 1, 'cors', '*')
 );
 
 create procedure DB.DBA.DBP_GRAPH_PARAM1 (in par varchar, in fmt varchar, in val varchar)
@@ -391,7 +391,7 @@ DB.DBA.VHOST_DEFINE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('d
 	is_dav=>1,
 	def_page=>'',
 	vsp_user=>'dba',
-	opts=>vector ('noinherit', 'yes')
+	opts=>vector ('noinherit', 'yes', 'cors', '*')
 );
 
 --# property
