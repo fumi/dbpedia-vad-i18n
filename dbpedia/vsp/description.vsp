@@ -117,8 +117,8 @@
     rdf_link := replace (rdf_link, '%25', '%');
 
   gen_rdf_link := rdf_link;
-  csv_link  := sprintf('%s&amp;format=text%%2Fcsv', rdf_link); 
-  cxml_link := sprintf('%s&amp;format=text%%2Fcxml', rdf_link); 
+  csv_link  := sprintf('%s&format=text%%2Fcsv', rdf_link); 
+  cxml_link := sprintf('%s&format=text%%2Fcxml', rdf_link); 
 
   if (page_resource_uri like 'http://%/resource/%')
     rdf_link2 := dbp_ldd_get_proxy (replace (page_resource_uri, '/resource/', '/data/'));
@@ -140,13 +140,13 @@
   else  
     rdf_link2 := rdf_link;
   if (rdf_link2 not like '%/data%/%') {
-    rdf_link2 := sprintf('%s&amp;format=rdf'                     , rdf_link); 
-    rdf_link3 := sprintf('%s&amp;output=application%2Frdf%2Bjson', rdf_link);
-    rdf_link4 := sprintf('%s&amp;output=application%2Frdf%2Bjson', rdf_link);
-    rdf_link := sprintf('%s&amp;format=n3'                       , rdf_link);
-    atom_link := sprintf('%s&amp;output=application%2Fatom%2Bxml', rdf_link);
-    jsod := sprintf('%s&amp;output=application%2Fodata%2Bjson'   , rdf_link);
-    ntriples := sprintf('%s&amp;output=text%2Fplain'             , rdf_link);
+    rdf_link2 := sprintf('%s&format=rdf'                     , rdf_link); 
+    rdf_link3 := sprintf('%s&output=application%2Frdf%2Bjson', rdf_link);
+    rdf_link4 := sprintf('%s&output=application%2Frdf%2Bjson', rdf_link);
+    rdf_link := sprintf('%s&format=n3'                       , rdf_link);
+    atom_link := sprintf('%s&output=application%2Fatom%2Bxml', rdf_link);
+    jsod := sprintf('%s&output=application%2Fodata%2Bjson'   , rdf_link);
+    ntriples := sprintf('%s&output=text%2Fplain'             , rdf_link);
   }  
   else {
     rdf_link  := sprintf('%s.n3'      , rdf_link2);
@@ -237,7 +237,7 @@
   <?vsp } ?>
   <link rel="alternate" type="application/microdata+json"   href="<?=charset_recode (gen_rdf_link, 'UTF-8', '_WIDE_')?>&amp;output=application/microdata+json" title="Structured Descriptor Document (Microdata/JSON format)" />
   <link rel="alternate" type="text/html"                      href="<?=charset_recode (gen_rdf_link, 'UTF-8', '_WIDE_')?>&amp;output=text/html"                  title="Structured Descriptor Document (Microdata/HTML format)" />
-  <link rel="alternate" type="application/ld+json"            href="<?=charset_recode (gen_rdf_link, 'UTF-8', '_WIDE_')?>&amp;output=application/ld+json?>"      title="Structured Descriptor Document (JSON-LD format)" />
+  <link rel="alternate" type="application/ld+json"            href="<?=charset_recode (gen_rdf_link, 'UTF-8', '_WIDE_')?>&amp;output=application/ld+json"      title="Structured Descriptor Document (JSON-LD format)" />
   <link rel="timegate"  type="text/html" href="http://mementoarchive.lanl.gov/dbpedia/timegate/<?=charset_recode (_resource_, 'UTF-8', '_WIDE_')?>" title="Time Machine" />
   <link rel="stylesheet" type="text/css" href="/statics/bootstrap.min.css" />
   <link href="/statics/highlighter.css" type="text/css" rel="stylesheet" charset="utf-8" />
