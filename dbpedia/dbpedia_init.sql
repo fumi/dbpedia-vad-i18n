@@ -76,6 +76,9 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbp_rule_18', 1, '/class/(.*)\x24', vecto
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbp_rule_19', 1, '/class/(.*)\x24', vector ('par_1'), 1,
 '/data2/%s.n3', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
 
+DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbp_rule_20', 1, '/class/(.*)\x24', vector ('par_1'), 1,
+'/data2/%s.ttl', vector ('par_1'), NULL, 'text/turtle', 2, 303, 'Content-Type: text/turtle');
+
 --# ontology
 DB.DBA.VHOST_DEFINE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('dbp_vhost'), lpath=>'/ontology',
 	 ppath=>'/',
@@ -97,6 +100,9 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'owl_rule_18', 1, '/ontology/(.*)\x24', ve
 
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'owl_rule_19', 1, '/ontology/(.*)\x24', vector ('par_1'), 1,
 '/data3/%s.n3', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
+
+DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'owl_rule_20', 1, '/ontology/(.*)\x24', vector ('par_1'), 1,
+'/data3/%s.ttl', vector ('par_1'), NULL, 'text/turtle', 2, 303, 'Content-Type: text/turtle');
 
 
 --# data
@@ -318,7 +324,7 @@ create procedure DB.DBA.DBP_DATA_IRI1 (in par varchar, in fmt varchar, in val va
 ;
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbp_rule_12', 1, '/resource/([^\\?]*)(\\?lang=.*)?\x24', vector ('par_1', 'par_2'), 1,
     '/data/@__@%s', vector ('par_1'), 'DB.DBA.DBP_DATA_IRI1', 
-    '(application/rdf.xml)|(text/rdf.n3)|(text/n3)|(application/x-turtle)|(application/rdf.json)|(application/json)|(application/atom.xml)|(application/odata.json)', 2, 303, '^{sql:DB.DBA.DBP_LINK_HDR}^');
+    '(application/rdf.xml)|(text/rdf.n3)|(text/n3)|(application/x-turtle)|(text/turtle)|(application/rdf.json)|(application/json)|(application/atom.xml)|(application/odata.json)', 2, 303, '^{sql:DB.DBA.DBP_LINK_HDR}^');
 
 create procedure DB.DBA.DBP_TCN_LOC (in id any, in var any)
 {
@@ -332,6 +338,7 @@ DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_2', '/data/@__@(.*)', '/data/\x241.xml',
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_2', '/data/@__@(.*)', '/data/\x241.n3',   'text/n3', 0.80, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_2', '/data/@__@(.*)', '/data/\x241.nt',   'text/rdf+n3', 0.80, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_2', '/data/@__@(.*)', '/data/\x241.ttl',  'application/x-turtle', 0.70, location_hook=>null);
+DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_2', '/data/@__@(.*)', '/data/\x241.ttl',  'text/turtle', 0.70, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_2', '/data/@__@(.*)', '/data/\x241.json', 'application/json', 0.60, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_2', '/data/@__@(.*)', '/data/\x241.jrdf', 'application/rdf+json', 0.60, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_2', '/data/@__@(.*)', '/data/\x241.atom', 'application/atom+xml', 0.50, location_hook=>null);
@@ -351,12 +358,13 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbp_rule_category14', 1, '/category/(.*)\
     '/page/%s', vector ('par_1'), NULL, NULL, 2, 303, NULL);
 
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbp_rule_category12', 1, '/category/(.*)\x24', vector ('par_1'), 1,
-    '/data/__%U', vector ('par_1'), NULL, '(application/rdf.xml)|(text/rdf.n3)|(application/x-turtle)|(application/rdf.json)|(application/json)', 2, 303);
+    '/data/__%U', vector ('par_1'), NULL, '(application/rdf.xml)|(text/rdf.n3)|(application/x-turtle)|(text/turtle)|(application/rdf.json)|(application/json)', 2, 303);
 
 delete from DB.DBA.HTTP_VARIANT_MAP where VM_RULELIST = 'dbp_rule_list_category';
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_category', '__(.*)', '\x241.xml', 'application/rdf+xml', 0.95, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_category', '__(.*)', '\x241.n3',  'text/rdf+n3', 0.80, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_category', '__(.*)', '\x241.ttl',  'application/x-turtle', 0.70, location_hook=>null);
+DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_category', '__(.*)', '\x241.ttl',  'text/turtle', 0.70, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_category', '__(.*)', '\x241.json',  'application/json', 0.60, location_hook=>null);
 DB.DBA.HTTP_VARIANT_ADD ('dbp_rule_list_category', '__(.*)', '\x241.jrdf',  'application/rdf+json', 0.60, location_hook=>null);
 
@@ -413,7 +421,10 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'prop_rule_18', 1, '/property/(.*)\x24', v
 '/data4/%s.n3', vector ('par_1'), NULL, 'text/rdf.n3', 1, 303, 'Content-Type: text/rdf+n3');
 
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'prop_rule_19', 1, '/property/(.*)\x24', vector ('par_1'), 1,
-'/data4/%s.n3', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
+'/data4/%s.ttl', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
+
+DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'prop_rule_19', 1, '/property/(.*)\x24', vector ('par_1'), 1,
+'/data4/%s.ttl', vector ('par_1'), NULL, 'text/turtle', 2, 303, 'Content-Type: text/turtle');
 
 --# data4
 DB.DBA.VHOST_DEFINE ( lhost=>registry_get ('dbp_lhost'), vhost=>registry_get ('dbp_vhost'), lpath=>'/data4',
@@ -704,7 +715,9 @@ DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_void_rule_2', 1, '/void/(.*)\x24', v
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_void_rule_3', 1, '/void/(.*)\x24', vector ('par_1'), 1,
     '/void/data/%s.n3', vector ('par_1'), NULL, 'text/rdf.n3', 2, 303, 'Content-Type: text/rdf+n3');
 DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_void_rule_4', 1, '/void/(.*)\x24', vector ('par_1'), 1,
-    '/void/data/%s.n3', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
+    '/void/data/%s.ttl', vector ('par_1'), NULL, 'application/x-turtle', 2, 303, 'Content-Type: application/x-turtle');
+DB.DBA.URLREWRITE_CREATE_REGEX_RULE ( 'dbpl_void_rule_4', 1, '/void/(.*)\x24', vector ('par_1'), 1,
+    '/void/data/%s.ttl', vector ('par_1'), NULL, 'text/turtle', 2, 303, 'Content-Type: text/turtle');
 
 TTLP (
 '
