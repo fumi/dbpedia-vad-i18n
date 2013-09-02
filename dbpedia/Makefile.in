@@ -326,6 +326,7 @@ EXTRA_DIST = \
 	vad_version \
 	vsp/*.html \
 	vsp/*.sql \
+	vsp/*.ttl \
 	vsp/*.vsp \
 	vsp/fonts/*.eot \
 	vsp/fonts/*.svg \
