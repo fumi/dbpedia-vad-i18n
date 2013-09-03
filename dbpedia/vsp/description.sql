@@ -484,7 +484,7 @@ create procedure dbp_ldd_http_print_l (in p_text any, inout odd_position int, in
          title, 
          p_prefix));
    if (rev) http (' of');
-   http ('</td><td><ul>\n');
+   http ('</td><td><ul class="list-group">\n');
 }
 ;
 
@@ -542,7 +542,7 @@ create procedure dbp_ldd_http_print_r (in _object any, in org int := 0, in label
    rdfs_type := DB.DBA.RDF_DATATYPE_OF_OBJ (_object);
    rdfa := dbp_ldd_rel_print (id_to_iri (pred), rel, null, 1, lang, 0);
 
-   http (sprintf ('\t<li%s><span class="literal">', case visible when 0 then ' style="display:none;"' else '' end));
+   http (sprintf ('\t<li class="list-group-item"%s><span class="literal">', case visible when 0 then ' style="display:none;"' else '' end));
 
 again:
    if (__tag (_object) = 246)
